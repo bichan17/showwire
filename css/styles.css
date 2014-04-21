@@ -1,0 +1,50 @@
+body{
+	background-color: #2A4A2A;
+	font-family:verdana,tahoma,sans-serif;
+}
+
+#artistInfo{
+	border:1px solid black;
+	padding:0 5px 5px 5px;
+	width:500px;
+	/*float:right;*/
+	height: 150px;
+	overflow-y: scroll;
+}
+#events{
+	border:1px solid black;
+	padding:0 5px 5px 5px;
+	width:500px;
+	/*float:right;*/
+	height: 350px;
+	overflow-y: scroll;
+}
+#content{
+	position: relative;
+}
+#info{
+	/*display: inline-block;*/
+	float: left;
+	position: relative;
+	margin-right: 10px;
+	font-size: 10pt;
+
+}
+#map_canvas{
+	width:500px;
+	height:512px;
+	float:right;
+	border:1px solid black;
+}
+#wrapper{
+	width:1026px;
+	margin:0px auto;
+	text-align:left;
+	padding: 20px;
+    padding-bottom: 0;
+	border:1px #333;
+	background-color:white;
+    height: 774px;
+
+	box-shadow: 0px 5px 10px #003B28;
+}

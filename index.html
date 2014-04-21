@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+  	<title>Show Wire</title>
+  	<!-- Link to Stylesheet -->
+  	<link rel="stylesheet" href="css/styles.css" />
+  	 
+
+ 	<!-- Import Google Maps -->
+   	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDIKEh4uobEtUDTmhXJuo9seDGNpS6DR0k&sensor=false"></script>
+  
+  	<!-- Import our JS file -->
+  	<script type="text/javascript" src="scripts/modernizr.js"></script>
+    <script type="text/javascript" src="scripts/loader.js"></script>
+    <!-- Note: Ajax Spinner is from http://ajaxload.info/ -->
+   
+</head>
+<body>
+<div id="wrapper">
+  <div id="content">
+    <h1>Show Wire</h1>
+    <div>Search an artist to find their shows and other info</div>
+    <div>
+
+    	Artist Name -&gt;
+    	<input id="searchterm" type="text" size="20" maxlength="20" value="El Ten Eleven" /> 
+    	<br /><br />
+    	<button type="button" id="getbutton">Find Shows!</button>
+
+    </div>
+
+    <h2>Results</h2>
+    
+    <div id="info">
+      <div id="events">
+        <p>No events yet!</p>
+      </div>
+      <div id="artistInfo">
+        <p>No band yet!</p>
+      </div>
+      
+      
+    </div>
+    <div id="map_canvas"></div>
+  </div>
+</div>
+</body>
+</html>
