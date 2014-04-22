@@ -5,14 +5,16 @@ app.main = (function(){
 	const LASTFM_GETINFO_URL = "http://ws.audioscrobbler.com/2.0/?api_key=44c265a8aecc1c4a56dae9f8479a84ac&format=json&method=artist.getinfo&autocorrect=1&artist="
 	const LASTFM_GETEVENTS_URL = "http://ws.audioscrobbler.com/2.0/?method=artist.getevents&api_key=44c265a8aecc1c4a56dae9f8479a84ac&format=json&autocorrect=1&artist="
 	
-  	// INSTANCE VARIABLES
-    var map;
-    var infowindow;
-    var overlays;
+	// INSTANCE VARIABLES
+	var map;
+  var infowindow;
+  var overlays;
+
+  console.log(app);
+
     
-    
-    // PUBLIC METHODS
-    function init(){
+  // PUBLIC METHODS
+  function init(){
 		// initializeMap() sets up the Google Map
 		initializeMap(); 
 	
@@ -28,40 +30,24 @@ app.main = (function(){
 			}
 		});
 
-    }; // end init
-    
-    function onArtistInfoLoaded(obj){
-    	
-		// alert(JSON.stringify(obj));
+  }; // end init
+  
+  function onArtistInfoLoaded(obj){
+
 		var html = "";
 		var results = obj.artist;
-		console.log(results.name +" info loaded");
 		html += "<div>";
 		html += "<h2>" + results.name  + "</h2>\n";
-  		html += "<p id='bio'>" + results.bio.content + "</p>";
-  		html += "</div>"
-	
-		// // set html of #content div using jquery()
+		html += "<p id='bio'>" + results.bio.content + "</p>";
+		html += "</div>";
 		$('#artistInfo').html(html);
-		// $("#bio").shorten({
-  //   		"showChars" : 200,
-  //   		"moreText" : "See More",
-  //   		"lessText" : "Less"
-		// });
-
-
-
-		 
 	};
 
 	function onArtistEventsLoaded(obj){
 		
 		results = obj.events;
-
-		// if()
 		var artist;
 		var total;
-		console.log(results);
 		if (!obj.events['@attr']){
 			artist = results.artist;
 			total = results.total;
@@ -69,48 +55,59 @@ app.main = (function(){
 			artist = results['@attr'].artist;
 			total = (!results.event.length)? 1 : results.event.length ;
 		}
-		console.log(artist + ", "+ total +" events loaded");
 		html = ""
 		html += "<div>";
-		html += "<h2>" + artist + " - Upcoming Events</h2>";
+		html += "<h3>" + artist + "<br>"+ total + " Upcoming Events</h3>";
 		
 		if (total == 0){
 
 			html += "<p>No upcoming events, sorry!</p>";
 
 		}else{
-
-			html +="<p>Hooray! There is some stuff here!</p>";
 			// console.log("events: " + results.event);
-			var latFirst = results.event[0].venue.location["geo:point"]["geo:lat"];
-			var longFirst = results.event[0].venue.location["geo:point"]["geo:long"];
-			var posFirst = new google.maps.LatLng(latFirst, longFirst);
+			var pointFound = false;
+			
+			var posFirst;
 			for(var i =0; i<total; i++){
 				// console.log(results.event[i].venue.location["geo:point"]["geo:lat"]);
-				html +="<h3>" + results.event[i].title + "</h3>";
-				html += "<span class='lineup'>With: " + results.event[i].artists.artist + "</span>";
-				if(!results.event[i].venue.website){
-					html += "<div class='eInfo'>At: " + results.event[i].venue.name + "<br />" + results.event[i].venue.location.street + ", " + results.event[i].venue.location.city + ", " + results.event[i].venue.location.country +"<br />" + results.event[i].startDate + "</div>";
+				if(pointFound == false){
+					var latFirst = results.event[i].venue.location["geo:point"]["geo:lat"];
+					var longFirst = results.event[i].venue.location["geo:point"]["geo:long"];
 
-				}else{
-					html += "<div class='eInfo'>At: " + results.event[i].venue.name + "<br />" + results.event[i].venue.location.street + ", " + results.event[i].venue.location.city + ", " + results.event[i].venue.location.country +"<br />" + results.event[i].startDate + "<br /><a href='"+ results.event[i].venue.website +"'>Find out more</a>"+ "</div>";
+					if(latFirst !="" && longFirst != ""){
+						posFirst = new google.maps.LatLng(latFirst, longFirst);
+						pointFound= true;
+					}
+
 				}
+				var image = new google.maps.MarkerImage('images/marker' + (i+1) + '.png',
+                    new google.maps.Size(20, 34),
+                    new google.maps.Point(0, 0),
+                    new google.maps.Point(10, 34));
 				
 				var latitude = results.event[i].venue.location["geo:point"]["geo:lat"];
 				var longitude = results.event[i].venue.location["geo:point"]["geo:long"];
 				var position = new google.maps.LatLng(latitude, longitude);
 				var marker = new google.maps.Marker({
-	      			position: position, 
+	      			position: position,
+	      			icon: image,
 	     			map: map
 	  			});
-
-				// var msg = results[0].name + "!";
-				// makeInfoWindow(position,msg)
+				html +="<h4>"+ (i+1) + ": " + results.event[i].title + "</h4>";
 				
+				// html +="<h4>"+ (i+1) + ": <a href='#' onclick='app.map.panTo(" + position + ");'> " + results.event[i].title + "</a></h4>";
+				html += "<span class='lineup'>With: " + results.event[i].artists.artist + "</span>";
+				if(!results.event[i].venue.website){
+					html += "<div class='eInfo'>At: " + results.event[i].venue.name + "<br />" + results.event[i].venue.location.street + ", " + results.event[i].venue.location.city + ", " + results.event[i].venue.location.country +"<br />" + results.event[i].startDate + "</div><hr>";
 
+				}else{
+					html += "<div class='eInfo'>At: " + results.event[i].venue.name + "<br />" + results.event[i].venue.location.street + ", " + results.event[i].venue.location.city + ", " + results.event[i].venue.location.country +"<br />" + results.event[i].startDate + "<br /><a href='"+ results.event[i].venue.website +"'>Find out more</a>"+ "</div><hr>";
+				}
 			}
-			map.panTo(posFirst);
-			map.setZoom(10);
+			if(pointFound == true){
+				map.panTo(posFirst);
+				map.setZoom(10);
+			}
 		}
 		html += "</div>";
 		$('#events').html(html);
@@ -157,15 +154,16 @@ app.main = (function(){
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         // create google map 
-         map = new google.maps.Map(document.getElementById("map_canvas"),
-            myOptions);
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	};
 
-	
-	// public interface
+  
+
 	return{
+		map: map,
 		init: init
-		// onJSONLoaded: onJSONLoaded
 	};
 	
 })(); // end app.main
+
+console.log(app);

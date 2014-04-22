@@ -1,0 +1,23 @@
+
+#artistInfo{
+	/*height: 150px;*/
+	overflow-y: scroll;
+}
+#events{
+	/*float:right;*/
+	/*height: 350px;*/
+	overflow-y: scroll;
+}
+#content{
+	position: relative;
+}
+
+#map_canvas, #events{
+	height:512px;
+}
+.columns {
+	margin-bottom: 20px;
+}
+#searchterm{
+	display: inline-block;
+}

@@ -1,49 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-	<meta charset="utf-8" />
-  	<title>Show Wire</title>
-  	<!-- Link to Stylesheet -->
-  	<link rel="stylesheet" href="css/styles.css" />
-  	 
 
- 	<!-- Import Google Maps -->
-   	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDIKEh4uobEtUDTmhXJuo9seDGNpS6DR0k&sensor=false"></script>
-  
-  	<!-- Import our JS file -->
-  	<script type="text/javascript" src="scripts/modernizr.js"></script>
-    <script type="text/javascript" src="scripts/loader.js"></script>
-    <!-- Note: Ajax Spinner is from http://ajaxload.info/ -->
-   
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <title>Show Wire</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDIKEh4uobEtUDTmhXJuo9seDGNpS6DR0k&sensor=false"></script>
+  <script type="text/javascript" src="scripts/modernizr.js"></script>
+  <script type="text/javascript" src="scripts/loader.js"></script>
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- CSS
+  ================================================== -->
+  <link rel="stylesheet" href="stylesheets/base.css">
+  <link rel="stylesheet" href="stylesheets/skeleton.css">
+  <link rel="stylesheet" href="stylesheets/layout.css">
+  <link rel="stylesheet" href="stylesheets/styles.css" />
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- Favicons
+  ================================================== -->
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
 </head>
 <body>
-<div id="wrapper">
-  <div id="content">
-    <h1>Show Wire</h1>
-    <div>Search an artist to find their shows and other info</div>
-    <div>
-
-    	Artist Name -&gt;
-    	<input id="searchterm" type="text" size="20" maxlength="20" value="El Ten Eleven" /> 
-    	<br /><br />
-    	<button type="button" id="getbutton">Find Shows!</button>
-
+  <div class="container">
+    <div id="sixteen columns content">
+      <h1>Show Wire</h1>
+      <div>Search an artist to find their shows and their bio</div>
+      <input id="searchterm" type="text" size="20" maxlength="20" placeholder="Artist Name" />
+      <button type="button" id="getbutton">Find Shows!</button>
     </div>
-
-    <h2>Results</h2>
-    
-    <div id="info">
-      <div id="events">
+    <div id="results">
+      <h2>Events</h2>
+      <div class="eight columns" id="events">
         <p>No events yet!</p>
       </div>
-      <div id="artistInfo">
-        <p>No band yet!</p>
-      </div>
-      
-      
+      <div class="eight columns" id="map_canvas"></div>
     </div>
-    <div id="map_canvas"></div>
+    <hr>
+    <h2>Artist Bio</h2>
+    <div class="sixteen columns" id="artistInfo">
+      <p>No band yet!</p>
+    </div>
+
   </div>
-</div>
+
 </body>
 </html>
