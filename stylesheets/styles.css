@@ -21,3 +21,6 @@
 #searchterm{
 	display: inline-block;
 }
+.num{
+	font-style: italic;
+}

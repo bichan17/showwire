@@ -57,7 +57,9 @@ app.main = (function(){
 		}
 		html = ""
 		html += "<div>";
-		html += "<h3>" + artist + "<br>"+ total + " Upcoming Events</h3>";
+		html += "<h3>" + artist + "</h3>";
+		html += "<h4 class='num'>" + total + " Upcoming Events</h4>";
+
 		
 		if (total == 0){
 
